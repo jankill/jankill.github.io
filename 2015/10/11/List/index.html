@@ -1,0 +1,722 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Java,Spring,Mybatis" />
+
+
+
+  <meta name="keywords" content="ArrayList,Java,LinkedList,List,Vector," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ralph's Blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="一、简介List常用实现类有ArrayList、LinkedList、Vector等，List是有序列表，
+所以可以控制元素插入位置，且允许存在相同元素。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习Java集合系列一List">
+<meta property="og:url" content="http://ralph.com/2015/10/11/List/index.html">
+<meta property="og:site_name" content="Ralph's Blog">
+<meta property="og:description" content="一、简介List常用实现类有ArrayList、LinkedList、Vector等，List是有序列表，
+所以可以控制元素插入位置，且允许存在相同元素。">
+<meta property="og:image" content="http://7xndq7.com1.z0.glb.clouddn.com/List2.png">
+<meta property="og:updated_time" content="2015-10-12T13:08:21.461Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习Java集合系列一List">
+<meta name="twitter:description" content="一、简介List常用实现类有ArrayList、LinkedList、Vector等，List是有序列表，
+所以可以控制元素插入位置，且允许存在相同元素。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'post'
+  };
+</script>
+
+    <title> 学习Java集合系列一List // Ralph's Blog </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?168aeea354ed6a72a1a549161c25b2cd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Ralph's Blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              学习Java集合系列一List
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-10-11T21:14:08+08:00" content="2015-10-11">
+            2015-10-11
+          </time>
+        </span>
+
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/10/11/List/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/11/List/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h3 id="一、简介">一、简介</h3><pre><code><span class="built_in">List</span>常用实现类有ArrayList、LinkedList、Vector等，<span class="built_in">List</span>是有序列表，
+所以可以控制元素插入位置，且允许存在相同元素。
+</code></pre><a id="more"></a>
+<hr>
+<p><img src="http://7xndq7.com1.z0.glb.clouddn.com/List2.png" alt="此处输入图片的描述"></p>
+<hr>
+<h4 id="1、List接口提供的方法：">1、List接口提供的方法：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span>     <span class="title">add</span><span class="params">(E e)</span><span class="comment">//添加元素e</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>         <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span><span class="comment">//在指定下标(index)位置添加元素element</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span> <span class="comment">//添加集合c中的所有元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">addAll</span><span class="params">(<span class="keyword">int</span> index, Collection&lt;? extends E&gt; c)</span><span class="comment">//在列表的指定下标(index)  位置添加集合c</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span>         <span class="title">clear</span><span class="params">()</span><span class="comment">//清空列表中的元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">contains</span><span class="params">(Object o)</span><span class="comment">//列表中是否包含元素(o)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span><span class="comment">//列表中是否包含集合c中的所有元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">equals</span><span class="params">(Object o)</span></span><br><span class="line"></span><br><span class="line">E           <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span><span class="comment">//取得指定下标(index)位置的元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>         <span class="title">hashCode</span><span class="params">()</span><span class="comment">//返回列表的hashcode值</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>         <span class="title">indexOf</span><span class="params">(Object o)</span><span class="comment">//返回指定对象o在列表中第一次出现的下标位置，如果没有该对象返回-1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">isEmpty</span><span class="params">()</span><span class="comment">//列表是否为空，如果是空返回true</span></span><br><span class="line"></span><br><span class="line">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span><span class="comment">//以列表中元素本来顺序返回列表元素的迭代器</span></span><br><span class="line">。</span><br><span class="line"><span class="keyword">int</span>         <span class="title">lastIndexOf</span><span class="params">(Object o)</span><span class="comment">//返回指定对象o在列表中最后一次出现的下标位置，  如果没有该对象返回-1</span></span><br><span class="line"></span><br><span class="line">ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">()</span><span class="comment">//以列表中元素本来顺序返回列表元素的迭代器。</span></span><br><span class="line"></span><br><span class="line">ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">(<span class="keyword">int</span> index)</span><span class="comment">//以列表中元素本来顺序返回列表元素的迭代器。</span></span><br><span class="line">开始位置下标是<span class="params">(index)</span></span><br><span class="line"></span><br><span class="line">E             <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span><span class="comment">//删除指定位置的元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">remove</span><span class="params">(Object o)</span><span class="comment">//删除列表中第一次出现的指定元素o</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span><span class="comment">//从列表中删除指定集合所含的所有元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span>     <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; c)</span><span class="comment">//列表只保留指定集合所含的元素</span></span><br><span class="line"></span><br><span class="line">E             <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span><span class="comment">//在指定位置中插入元素</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>         <span class="title">size</span><span class="params">()</span><span class="comment">//返回列表长度</span></span><br><span class="line"></span><br><span class="line">List&lt;E&gt;     <span class="title">subList</span><span class="params">(<span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex)</span><span class="comment">//返回列表位置fromindex到toindex位置的元素  的列表</span></span><br><span class="line"></span><br><span class="line">Object[]     <span class="title">toArray</span><span class="params">()</span><span class="comment">//列表转换成数组</span></span><br><span class="line"></span><br><span class="line">&lt;T&gt; T[]     <span class="title">toArray</span><span class="params">(T[] a)</span><span class="comment">//列表转换成指定类型的数组</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="二、ArrayList_vs-_LinkedList_vs-_Vector的数据结构">二、ArrayList vs. LinkedList vs. Vector的数据结构</h3><p>1、ArrayList、Vector实现了长度大小可变的数组，数据结构是线性表中的顺序存储结构。<br>2、LinkedList 使用了循环双向链表。数据结构是线性表中链式存储结构。</p>
+<hr>
+<h3 id="二、ArrayList_vs-_LinkedList_vs-_Vector之间使用中的区别">二、ArrayList vs. LinkedList vs. Vector之间使用中的区别</h3><pre><code>它们都实现了<span class="built_in">List</span>接口，使用上非常类似，但是它们数据结构的不同导致不同操作上性能差别较大。
+Vector和ArrayList基本类似，不同的是Vector是线程安全的,Vector的方法是同步的，有性能上的开销，
+如果程序是线程安全的建议使用ArrayList，LinkedList对元素的插入和删除性能要好于ArrayList,
+ArrayList对元素的查找要比LinkedList快很多。
+</code></pre><h4 id="1、查找">1、查找</h4><pre><code>ArraList可以通过.<span class="function"><span class="title">get</span><span class="params">(int index)</span></span>方法直接访问元素，而LinkedList 的.<span class="function"><span class="title">get</span><span class="params">(int index)</span></span>
+则需要通过遍历来查找元素,所以在对元素的查找上性能要好于LinkedList，ArrayList的速度是<span class="function"><span class="title">O</span><span class="params">(<span class="number">1</span>)</span></span>，
+而LinkedList的性能是<span class="function"><span class="title">O</span><span class="params">(n)</span></span>.
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">10000</span>; j++) &#123;</span><br><span class="line">    arrayList.add(j);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> starta = System.nanoTime();</span><br><span class="line">arrayList.get(<span class="number">3876</span>);</span><br><span class="line"><span class="keyword">long</span> enda = System.nanoTime();</span><br><span class="line">System.out.println(<span class="string">"ArrayList ："</span> + (enda - starta));</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    linkedList.add(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> startl = System.nanoTime();</span><br><span class="line">linkedList.get(<span class="number">3876</span>);</span><br><span class="line"><span class="keyword">long</span> endl = System.nanoTime();</span><br><span class="line">System.out.println(<span class="string">"LinkedList："</span> + (endl - startl));</span><br><span class="line"></span><br><span class="line">ArrayList ：<span class="number">7270</span></span><br><span class="line">LinkedList：<span class="number">110762</span></span><br></pre></td></tr></table></figure>
+<h4 id="2、删除和插入">2、删除和插入</h4><pre><code>LinkedList每个元素维护两个指向相邻元素的指针，删除和插入数据时只需要改变指针指向的位置，
+ArrayList是通过元素下标来维护列表中的元素，因为ArrayList是基于数组实现的，
+数组是一块连续内存空间，如果删除的不是列表的尾部元素，则ArrayList删除时需要把后面的元素向  前移动，
+插入时需要把后面的元素向后移动。
+</code></pre><hr>
+<h5 id="a、列表尾部插入元素性能比较：">a、列表尾部插入元素性能比较：</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> t = <span class="number">0</span>; t &lt;= <span class="number">3</span>; t++) &#123;</span><br><span class="line">System.out.println(<span class="string">"插入时间比较："</span>);</span><br><span class="line"><span class="keyword">long</span> starta = System.nanoTime();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">10000</span>; j++) &#123;</span><br><span class="line">    arrayList.add(j);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> enda = System.nanoTime();</span><br><span class="line">System.out.println(<span class="string">"ArrayList ："</span> + (enda - starta));</span><br><span class="line"><span class="keyword">long</span> startl = System.nanoTime();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    linkedList.add(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> endl = System.nanoTime();</span><br><span class="line">System.out.println(<span class="string">"LinkedList："</span> + (endl - startl));</span><br><span class="line"></span><br><span class="line">插入时间比较：</span><br><span class="line">ArrayList ：<span class="number">4840615</span></span><br><span class="line">LinkedList：<span class="number">4347531</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="b、列表非尾部位置插入元素性能比较：">b、列表非尾部位置插入元素性能比较：</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> starta = System.nanoTime();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">10000</span>; j++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (j&gt;<span class="number">10</span>)&#123;</span><br><span class="line">        arrayList.add(<span class="number">10</span>,j);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        arrayList.add(j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> enda = System.nanoTime();</span><br><span class="line">System.out.println(<span class="string">"ArrayList ："</span> + (enda - starta));</span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> startl = System.nanoTime();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(i&gt;<span class="number">10</span>)&#123;</span><br><span class="line">        linkedList.add(<span class="number">10</span>, i);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123; linkedList.add(i);&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> endl = System.nanoTime();</span><br><span class="line">System.out.println(<span class="string">"LinkedList："</span> + (endl - startl));</span><br><span class="line"></span><br><span class="line">ArrayList ：<span class="number">54617401</span></span><br><span class="line">LinkedList：<span class="number">9695771</span></span><br></pre></td></tr></table></figure>
+<pre><code>以上可以看出列表尾部插入元素性能差距不大，但是非尾部插入元素性能差距较大。删操作类似，
+插入和删除操作的元素越靠前，性能差距越大。
+</code></pre></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ArrayList/" rel="tag">#ArrayList</a>
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/LinkedList/" rel="tag">#LinkedList</a>
+          
+            <a href="/tags/List/" rel="tag">#List</a>
+          
+            <a href="/tags/Vector/" rel="tag">#Vector</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/11/demo/" rel="prev">demo</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2015/10/11/List/"
+                       data-title="学习Java集合系列一List" data-url="http://ralph.com/2015/10/11/List/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="Ralph'D" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Ralph'D</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Java,Spring,Mybatis</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">0</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://macshuo.com/" target="_blank">MacTalk</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、简介"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、List接口提供的方法："><span class="nav-number">1.1.</span> <span class="nav-text">1、List接口提供的方法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、ArrayList_vs-_LinkedList_vs-_Vector的数据结构"><span class="nav-number">2.</span> <span class="nav-text">二、ArrayList vs. LinkedList vs. Vector的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、ArrayList_vs-_LinkedList_vs-_Vector之间使用中的区别"><span class="nav-number">3.</span> <span class="nav-text">二、ArrayList vs. LinkedList vs. Vector之间使用中的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、查找"><span class="nav-number">3.1.</span> <span class="nav-text">1、查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、删除和插入"><span class="nav-number">3.2.</span> <span class="nav-text">2、删除和插入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a、列表尾部插入元素性能比较："><span class="nav-number">3.2.1.</span> <span class="nav-text">a、列表尾部插入元素性能比较：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b、列表非尾部位置插入元素性能比较："><span class="nav-number">3.2.2.</span> <span class="nav-text">b、列表非尾部位置插入元素性能比较：</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp;  2013 - 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ralph'D</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ralph"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>
